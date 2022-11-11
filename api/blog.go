@@ -29,7 +29,7 @@ func (h *handler) GetBlog(ctx *gin.Context) {
 }
 
 func (h *handler) GetBlogs(ctx *gin.Context) {
-	limit, err := strconv.ParseInt(ctx.Query("limit"), 10, 64)
+	queryParams, err := validateGetBlogsQuery(ctx)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"message": err.Error(),
@@ -37,20 +37,7 @@ func (h *handler) GetBlogs(ctx *gin.Context) {
 		return
 	}
 
-	page, err := strconv.ParseInt(ctx.Query("page"), 10, 64)
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"message": err.Error(),
-		})
-		return
-	}
-
-	resp, err := h.storage.GetAll(&storage.GetBlogsQueryParam{
-		Limit:  int32(limit),
-		Page:   int32(page),
-		Author: ctx.Query("author"),
-		Title:  ctx.Query("title"),
-	})
+	resp, err := h.storage.GetAll(queryParams)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"message": err.Error(),
@@ -59,6 +46,34 @@ func (h *handler) GetBlogs(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, resp)
+}
+
+func validateGetBlogsQuery(ctx *gin.Context) (*storage.GetBlogsQueryParam, error) {
+	var (
+		limit int64 = 10
+		page  int64 = 1
+		err   error
+	)
+	if ctx.Query("limit") != "" {
+		limit, err = strconv.ParseInt(ctx.Query("limit"), 10, 64)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if ctx.Query("page") != "" {
+		page, err = strconv.ParseInt(ctx.Query("page"), 10, 64)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &storage.GetBlogsQueryParam{
+		Limit:  int32(limit),
+		Page:   int32(page),
+		Author: ctx.Query("author"),
+		Title:  ctx.Query("title"),
+	}, nil
 }
 
 func (h *handler) CreateBlog(ctx *gin.Context) {
