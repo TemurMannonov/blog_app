@@ -1,0 +1,192 @@
+definitions:
+  api.CreateBlogRequest:
+    properties:
+      author:
+        type: string
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  api.ResponseError:
+    properties:
+      message:
+        type: string
+    type: object
+  api.ResponseOK:
+    properties:
+      message:
+        type: string
+    type: object
+  storage.Blog:
+    properties:
+      author:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  storage.GetBlogsResult:
+    properties:
+      blogs:
+        items:
+          $ref: '#/definitions/storage.Blog'
+        type: array
+      count:
+        type: integer
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: This is a blog service api.
+  title: Swagger for blog api
+  version: "1.0"
+paths:
+  /blogs:
+    get:
+      consumes:
+      - application/json
+      description: Get blogs
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: Author
+        in: query
+        name: author
+        type: string
+      - description: Title
+        in: query
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/storage.GetBlogsResult'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ResponseError'
+      summary: Get blogs
+      tags:
+      - blog
+    post:
+      consumes:
+      - application/json
+      description: Create a blog
+      parameters:
+      - description: Blog
+        in: body
+        name: blog
+        required: true
+        schema:
+          $ref: '#/definitions/api.CreateBlogRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/storage.Blog'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ResponseError'
+      summary: Create a blog
+      tags:
+      - blog
+  /blogs/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a blog
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ResponseOK'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ResponseError'
+      summary: Delete a blog
+      tags:
+      - blog
+    get:
+      consumes:
+      - application/json
+      description: Get blog by id
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/storage.Blog'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ResponseError'
+      summary: Get blog by id
+      tags:
+      - blog
+    put:
+      consumes:
+      - application/json
+      description: Update a blog
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Blog
+        in: body
+        name: blog
+        required: true
+        schema:
+          $ref: '#/definitions/api.CreateBlogRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/storage.Blog'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ResponseError'
+      summary: Update a blog
+      tags:
+      - blog
+swagger: "2.0"

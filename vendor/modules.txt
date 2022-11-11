@@ -1,3 +1,12 @@
+# github.com/KyleBanks/depth v1.2.1
+## explicit
+github.com/KyleBanks/depth
+# github.com/PuerkitoBio/purell v1.1.1
+## explicit
+github.com/PuerkitoBio/purell
+# github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578
+## explicit
+github.com/PuerkitoBio/urlesc
 # github.com/bxcodec/faker/v4 v4.0.0-beta.3
 ## explicit; go 1.17
 github.com/bxcodec/faker/v4
@@ -18,6 +27,18 @@ github.com/gin-gonic/gin/binding
 github.com/gin-gonic/gin/internal/bytesconv
 github.com/gin-gonic/gin/internal/json
 github.com/gin-gonic/gin/render
+# github.com/go-openapi/jsonpointer v0.19.5
+## explicit; go 1.13
+github.com/go-openapi/jsonpointer
+# github.com/go-openapi/jsonreference v0.19.6
+## explicit; go 1.13
+github.com/go-openapi/jsonreference
+# github.com/go-openapi/spec v0.20.4
+## explicit; go 1.13
+github.com/go-openapi/spec
+# github.com/go-openapi/swag v0.19.15
+## explicit; go 1.11
+github.com/go-openapi/swag
 # github.com/go-playground/locales v0.14.0
 ## explicit; go 1.13
 github.com/go-playground/locales
@@ -39,6 +60,9 @@ github.com/goccy/go-json/internal/encoder/vm_color_indent
 github.com/goccy/go-json/internal/encoder/vm_indent
 github.com/goccy/go-json/internal/errors
 github.com/goccy/go-json/internal/runtime
+# github.com/josharian/intern v1.0.0
+## explicit; go 1.5
+github.com/josharian/intern
 # github.com/json-iterator/go v1.1.12
 ## explicit; go 1.12
 github.com/json-iterator/go
@@ -50,6 +74,11 @@ github.com/leodido/go-urn
 github.com/lib/pq
 github.com/lib/pq/oid
 github.com/lib/pq/scram
+# github.com/mailru/easyjson v0.7.6
+## explicit; go 1.12
+github.com/mailru/easyjson/buffer
+github.com/mailru/easyjson/jlexer
+github.com/mailru/easyjson/jwriter
 # github.com/mattn/go-isatty v0.0.16
 ## explicit; go 1.15
 github.com/mattn/go-isatty
@@ -72,6 +101,15 @@ github.com/pmezard/go-difflib/difflib
 ## explicit; go 1.13
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
+# github.com/swaggo/files v0.0.0-20220728132757-551d4a08d97a
+## explicit; go 1.15
+github.com/swaggo/files
+# github.com/swaggo/gin-swagger v1.5.3
+## explicit; go 1.15
+github.com/swaggo/gin-swagger
+# github.com/swaggo/swag v1.8.1
+## explicit; go 1.18
+github.com/swaggo/swag
 # github.com/ugorji/go/codec v1.2.7
 ## explicit; go 1.11
 github.com/ugorji/go/codec
@@ -85,9 +123,12 @@ golang.org/x/net/http2
 golang.org/x/net/http2/h2c
 golang.org/x/net/http2/hpack
 golang.org/x/net/idna
+golang.org/x/net/webdav
+golang.org/x/net/webdav/internal/xml
 # golang.org/x/sys v0.2.0
 ## explicit; go 1.17
 golang.org/x/sys/cpu
+golang.org/x/sys/execabs
 golang.org/x/sys/unix
 # golang.org/x/text v0.4.0
 ## explicit; go 1.17
@@ -101,6 +142,14 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+golang.org/x/text/width
+# golang.org/x/tools v0.1.12
+## explicit; go 1.18
+golang.org/x/tools/go/ast/astutil
+golang.org/x/tools/go/buildutil
+golang.org/x/tools/go/internal/cgo
+golang.org/x/tools/go/loader
+golang.org/x/tools/internal/typeparams
 # google.golang.org/protobuf v1.28.1
 ## explicit; go 1.11
 google.golang.org/protobuf/encoding/protowire
