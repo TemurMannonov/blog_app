@@ -29,6 +29,11 @@ type GetBlogsQueryParam struct {
 	Limit  int32
 }
 
+type GetBlogsResult struct {
+	Blogs []*Blog `json:"blogs"`
+	Count int32   `json:"count"`
+}
+
 func (b *DBManager) Create(blog *Blog) (*Blog, error) {
 	query := `
 		INSERT INTO blogs(
@@ -91,8 +96,10 @@ func (b *DBManager) Get(id int64) (*Blog, error) {
 	return &result, nil
 }
 
-func (b *DBManager) GetAll(params *GetBlogsQueryParam) ([]*Blog, error) {
-	var blogs []*Blog
+func (b *DBManager) GetAll(params *GetBlogsQueryParam) (*GetBlogsResult, error) {
+	result := GetBlogsResult{
+		Blogs: make([]*Blog, 0),
+	}
 
 	offset := (params.Page - 1) * params.Limit
 
@@ -140,10 +147,16 @@ func (b *DBManager) GetAll(params *GetBlogsQueryParam) ([]*Blog, error) {
 			return nil, err
 		}
 
-		blogs = append(blogs, &blog)
+		result.Blogs = append(result.Blogs, &blog)
 	}
 
-	return blogs, nil
+	queryCount := `SELECT count(1) FROM blogs ` + filter
+	err = b.db.QueryRow(queryCount).Scan(&result.Count)
+	if err != nil {
+		return nil, err
+	}
+
+	return &result, nil
 }
 
 func (b *DBManager) Update(blog *Blog) (*Blog, error) {

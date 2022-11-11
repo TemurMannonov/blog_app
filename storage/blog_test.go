@@ -62,13 +62,13 @@ func TestDeleteBlog(t *testing.T) {
 func TestGetAll(t *testing.T) {
 	b := createBlog(t)
 
-	blogs, err := dbManager.GetAll(&GetBlogsQueryParam{
+	result, err := dbManager.GetAll(&GetBlogsQueryParam{
 		Limit: 10,
 		Page:  1,
 	})
 
 	require.NoError(t, err)
-	require.GreaterOrEqual(t, len(blogs), 1)
+	require.GreaterOrEqual(t, len(result.Blogs), 1)
 
 	deleteBlog(b.ID, t)
 }

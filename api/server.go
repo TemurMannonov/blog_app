@@ -17,8 +17,11 @@ func NewServer(storage *storage.DBManager) *gin.Engine {
 		storage: storage,
 	}
 
-	r.GET("/blog/:id", h.GetBlog)
-	r.POST("/blog", h.CreateBlog)
+	r.GET("/blogs/:id", h.GetBlog)
+	r.GET("/blogs", h.GetBlogs)
+	r.POST("/blogs", h.CreateBlog)
+	r.PUT("/blogs/:id", h.UpdateBlog)
+	r.DELETE("/blogs/:id", h.DeleteBlog)
 
 	return r
 }
