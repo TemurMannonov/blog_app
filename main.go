@@ -6,27 +6,24 @@ import (
 	"log"
 
 	"blog/api"
+	"blog/config"
 	"blog/storage"
 
 	_ "github.com/lib/pq"
 )
 
-var (
-	PostgresUser     = "postgres"
-	PostgresPassword = "postgres"
-	PostgresHost     = "localhost"
-	PostgresPort     = 5432
-	PostgresDatabase = "blog_db"
-)
-
 func main() {
+	cfg := config.Load(".")
+
+	fmt.Println("Config: ", cfg)
+
 	connStr := fmt.Sprintf(
-		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		PostgresHost,
-		PostgresPort,
-		PostgresUser,
-		PostgresPassword,
-		PostgresDatabase,
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		cfg.Postgres.Host,
+		cfg.Postgres.Port,
+		cfg.Postgres.User,
+		cfg.Postgres.Password,
+		cfg.Postgres.Database,
 	)
 
 	db, err := sql.Open("postgres", connStr)
@@ -38,7 +35,7 @@ func main() {
 
 	server := api.NewServer(storage)
 
-	err = server.Run(":8000")
+	err = server.Run(cfg.HttpPort)
 	if err != nil {
 		log.Fatalf("failed to start server: %v", err)
 	}
