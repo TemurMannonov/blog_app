@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"blog/config"
 	"database/sql"
 	"fmt"
 	"log"
@@ -12,23 +13,18 @@ import (
 
 var (
 	dbManager *DBManager
-
-	// Postgres credentials
-	PostgresUser     = "postgres"
-	PostgresPassword = "postgres"
-	PostgresHost     = "localhost"
-	PostgresPort     = 5432
-	PostgresDatabase = "blog_db"
 )
 
 func TestMain(m *testing.M) {
+	cfg := config.Load("./..")
+
 	connStr := fmt.Sprintf(
-		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		PostgresHost,
-		PostgresPort,
-		PostgresUser,
-		PostgresPassword,
-		PostgresDatabase,
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		cfg.Postgres.Host,
+		cfg.Postgres.Port,
+		cfg.Postgres.User,
+		cfg.Postgres.Password,
+		cfg.Postgres.Database,
 	)
 
 	db, err := sql.Open("postgres", connStr)
